@@ -2,11 +2,20 @@
 
 namespace JeffersonGoncalves\Filament\CcpaBreaches;
 
-use Filament\Contracts\Plugin;
 use Filament\Panel;
+use JeffersonGoncalves\Filament\CcpaBreaches\Resources\Breaches\BreachResource;
+use JeffersonGoncalves\FilamentPluginCore\BasePlugin;
 
-class CcpaBreachesPlugin implements Plugin
+class CcpaBreachesPlugin extends BasePlugin
 {
+    protected ?string $navigationGroup = null;
+
+    protected ?int $navigationSort = null;
+
+    protected string $navigationIcon = 'heroicon-o-exclamation-triangle';
+
+    protected string $slug = 'breaches';
+
     public function getId(): string
     {
         return 'filament-ccpa-breaches';
@@ -14,19 +23,56 @@ class CcpaBreachesPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
+        $panel->resources([
+            BreachResource::class,
+        ]);
     }
 
-    public function boot(Panel $panel): void
+    public function navigationGroup(?string $group): static
     {
+        $this->navigationGroup = $group;
+
+        return $this;
     }
 
-    public static function make(): static
+    public function getNavigationGroup(): ?string
     {
-        return app(static::class);
+        return $this->navigationGroup;
     }
 
-    public static function get(): static
+    public function navigationSort(?int $sort): static
     {
-        return filament(app(static::class)->getId());
+        $this->navigationSort = $sort;
+
+        return $this;
+    }
+
+    public function getNavigationSort(): ?int
+    {
+        return $this->navigationSort;
+    }
+
+    public function navigationIcon(string $icon): static
+    {
+        $this->navigationIcon = $icon;
+
+        return $this;
+    }
+
+    public function getNavigationIcon(): string
+    {
+        return $this->navigationIcon;
+    }
+
+    public function slug(string $slug): static
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getSlug(): string
+    {
+        return $this->slug;
     }
 }
