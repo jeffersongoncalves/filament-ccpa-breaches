@@ -2,17 +2,17 @@
 
 namespace JeffersonGoncalves\Filament\CcpaBreaches;
 
+use JeffersonGoncalves\FilamentPluginCore\BasePackageServiceProvider;
 use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class CcpaBreachesServiceProvider extends PackageServiceProvider
+class CcpaBreachesServiceProvider extends BasePackageServiceProvider
 {
+    public static string $name = 'filament-ccpa-breaches';
+
     public function configurePackage(Package $package): void
     {
         $package
-            ->name('filament-ccpa-breaches')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigrations();
+            ->name(static::$name)
+            ->hasTranslations();
     }
 }
